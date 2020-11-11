@@ -3,6 +3,7 @@
 using namespace std;
 using FileLine = OutputFile::FileLine;
 
+// Writes a line to a file.
 int main(int argc, char** argv)
 {
     if(argc != 4)
@@ -11,33 +12,45 @@ int main(int argc, char** argv)
         return 1;
     }
 
-    FileLine fileLine({argv[3], parseInt(argv[2])});
-    OutputFile file(argv[1], fileLine);
+    FileLine toWrite({argv[3], parseInt(argv[2])});
+    OutputFile file(argv[1], toWrite);
+
+    file.writeLine();
 
     return 0;
 }
 
 OutputFile::OutputFile(const string& name, const FileLine& toWrite)
-    : name(name), fileList(readFile()), toWrite(toWrite) {}
+    : name(name), lines(readFile()), toWrite(toWrite) {}
 
-OutputFile::FileList OutputFile::readFile()
+OutputFile::Lines OutputFile::readFile()
 {
-    FileList fileList;
+    Lines lines;
     ifstream file(name);
 
-    string line;
-    for(size_t i = 1; getline(file, line); ++i)
+    for(string line; getline(file, line); )
+        lines.push_back(line);
+
+    file.close();
+    return lines;
+}
+
+void OutputFile::writeLine()
+{
+    for(; toWrite.lineNum > lines.size(); lines.push_back("\n"));
+    lines[toWrite.lineNum - 1] = toWrite.line;
+
+    ofstream file(name);
+
+    for(string line : lines)
     {
-        fileList.push_back({line, i});
+        file << line;
+
+        if(line != "\n")
+            file << "\n";
     }
 
     file.close();
-    return fileList;
-}
-
-void OutputFile::writeLine() const 
-{
-    
 }
 
 size_t parseInt(const string& str)

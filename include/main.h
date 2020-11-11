@@ -14,20 +14,20 @@ public:
         size_t lineNum;
     };
 private:
-    using FileList = std::vector<FileLine>;
+    using Lines = std::vector<std::string>;
 
     std::string name;
-    FileList fileList;
+    Lines lines;
     FileLine toWrite;
 
 public:
     OutputFile(const std::string& name, const FileLine& toWrite);
 
     // Writes the line to the file.
-    void writeLine() const;
+    void writeLine();
 
 private:
-    FileList readFile();
+    Lines readFile();
 };
 
 // Parses an integer from a string.
