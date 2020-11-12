@@ -17,11 +17,14 @@ $(SERVEREXE): $(OBJECTS)
 	$(CC) $(CFLAGS) $(CINCLUDES) $^ -o $@
 	-$(RM) $(OBJECTS)
 
-$(OBJECTS): 
+$(OBJECTS): bin
 	-$(RM) $(SERVEREXE)
 	$(eval OFILE := $@)
 	$(eval SFILE := $(patsubst bin/%.o, src/%.cpp, $(OFILE)))
 	$(CC) -c -o $(OFILE) $(SFILE)
+
+bin:
+	mkdir bin
 
 .PHONY: clean
 clean:
