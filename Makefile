@@ -6,19 +6,16 @@ CINCLUDES	:= -Iinclude
 SOURCES		:= $(wildcard $(patsubst %,%/*.cpp, src))
 OBJECTS		:= $(patsubst src%, bin%, $(SOURCES:.cpp=.o))
 
-SERVER		:= ~/Documents/Coding/Web/Server_Laptop/cpp
+EXE			:= bin/lineWriter
 
-EXE			:= cppWriteLine
-SERVEREXE 	:= $(SERVER)/$(EXE)
+all: $(EXE)
 
-all: $(SERVEREXE)
-
-$(SERVEREXE): $(OBJECTS)
+$(EXE): $(OBJECTS)
 	$(CC) $(CFLAGS) $(CINCLUDES) $^ -o $@
 	-$(RM) $(OBJECTS)
 
 $(OBJECTS): bin
-	-$(RM) $(SERVEREXE)
+	-$(RM) $(EXE)
 	$(eval OFILE := $@)
 	$(eval SFILE := $(patsubst bin/%.o, src/%.cpp, $(OFILE)))
 	$(CC) -c -o $(OFILE) $(SFILE)
@@ -28,5 +25,5 @@ bin:
 
 .PHONY: clean
 clean:
-	-$(RM) $(SERVEREXE)
+	-$(RM) $(EXE)
 	-$(RM) $(OBJECTS)
