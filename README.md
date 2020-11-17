@@ -1,9 +1,9 @@
 # README
-By default, the make file will compile the program to bin/lineWriter.
+By default, the make file will compile the program to *bin/lineWriter*.
 You may need to make modifications to the Makefile for your OS (I'm working on Manjaro Linux).
 
-I created this program to create a decently efficient way to modify a single line of a file.
-It's easier than doing it manually in bash everytime.
+I wrote this program to create a decently efficient way to modify a single line of a file.
+It's easier than doing it manually in bash everytime, and hypothetically more efficient.
 I hope this can be useful to you in some way!
 See the *LICENSE* file for details.
 
