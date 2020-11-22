@@ -8,14 +8,13 @@ OBJECTS		:= $(patsubst src%, bin%, $(SOURCES:.cpp=.o))
 
 EXE			:= bin/lineWriter
 
-all: $(EXE)
+all: clean $(EXE)
 
 $(EXE): $(OBJECTS)
 	$(CC) $(CFLAGS) $(CINCLUDES) $^ -o $@
 	-$(RM) $(OBJECTS)
 
 $(OBJECTS): bin
-	-$(RM) $(EXE)
 	$(eval OFILE := $@)
 	$(eval SFILE := $(patsubst bin/%.o, src/%.cpp, $(OFILE)))
 	$(CC) -c -o $(OFILE) $(SFILE)
@@ -24,6 +23,5 @@ bin:
 	mkdir bin
 
 .PHONY: clean
-clean:
+clean: 
 	-$(RM) $(EXE)
-	-$(RM) $(OBJECTS)
