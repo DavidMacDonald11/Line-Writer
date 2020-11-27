@@ -1,5 +1,5 @@
 CC		:= g++
-CFLAGS	:= -std=c++20 -Wall -Wextra -g
+CFLAGS	:= -std=c++17 -Wall -Wextra -g
 
 CINCLUDES	:= -Iinclude
 
